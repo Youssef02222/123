@@ -6,3 +6,5 @@ function sum(...arr){
     return result;
 }
 console.log(sum(5, 4));
+
+alert("welcome");
