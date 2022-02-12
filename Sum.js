@@ -6,3 +6,7 @@ function sum(...arr){
     return result;
 }
 console.log(sum(5, 4));
+
+function printWelcomeMessage(){
+    alert("Welcome To My Site");
+}
