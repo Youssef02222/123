@@ -1,0 +1,17 @@
+{
+
+
+
+  "name": "simple/simple",
+  "description": "simple project",
+  "license" : "MIT",
+
+ "autoload":{
+	"classmap":["Model"],
+   "files": ["config.php"]
+ 
+ }
+ 
+ 
+ 
+}
