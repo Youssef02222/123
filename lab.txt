@@ -1,0 +1,33 @@
+1-Write a job that executes every 5mins that logs the system load every 5 mins and the tuned profile. the results are sent to syslog with local7.notice periority
+2-The local7.notice stores the messages into file /var/log/iti-load. The file owned by root:root, and the user iti can read the messages from the file
+
+
+1.
+Configure ubuntu to store any message from facility local7 and periority notice to /var/log/itilog
+				1-create rsyslog config file 
+				sudo nano /etc/rsyslog.d/iti.conf
+				local7.notice	/var/log/iti
+				2-Save/Exit
+				3-Restart rsyslog service
+				init: sudo service rsyslog restart
+				systemd: sudo systemctl restart rsyslog
+
+
+
+cronetab -e
+
+:1
+
+*/5 * * * * logger -p local7.notice `uptime;sudo tuned-adm active`
+
+to show the result:  $sudo cat /var/log/iti
+Mar  2 15:25:01 Youssef-virtual-machine youssef: 15:25:01 up 1:00, 1 user, load average: 0.32, 0.12, 0.18
+Mar  2 15:30:01 Youssef-virtual-machine youssef: 15:30:01 up 1:05, 1 user, load average: 0.06, 0.10, 0.15
+
+
+
+#chmod (755) to give the others the read permission to the file
+
+setfacl -m u:ITI:rx /tmp/filedata1 
+
+create user called ITI and read the file /var/log/iti by this user
