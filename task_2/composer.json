@@ -1,0 +1,14 @@
+{
+  "name": "xyz/yz_project",
+  "description": "PHP project",
+  "license" : "MIT",
+
+ "autoload":{
+
+	"classmap":["Model"],
+    "files": ["config.php"]
+ },
+  "require": {
+    "illuminate/database": "*"
+  }
+}

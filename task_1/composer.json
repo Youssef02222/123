@@ -1,0 +1,15 @@
+{
+  "autoload": {
+    "classmap":["Model"],
+    "files": [
+      "config.php"
+    ]
+  },
+  "description": "simple project",
+  "license": "MIT",
+  "name": "simple/verysimple",
+  "require": {
+    "guzzlehttp/guzzle":"~6.0"
+
+  }
+}
