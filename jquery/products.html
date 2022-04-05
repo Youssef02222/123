@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Lab</title>
+
+		<script src="jquery.min.js"></script>	
+		<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+		<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+		
+
+		<script>
+			const items = [{
+    name: "water",
+    price: 10,
+    imagsrc: "water.jpg"
+},
+{
+    name: "Mango",
+    price: 50,
+    imagsrc: "mango-juice.jpg"
+},
+{
+    name: "coffe",
+    price: 35,
+    imagsrc: "coffee.jpg"
+}
+]
+			$(() => {
+    for (let item of items) {
+        const newItem = $(".item.hidden").clone()
+        newItem.removeClass('hidden').appendTo(".menu").children(".item-name").html(`${item.name}`)
+        newItem.children(".item-price").html(`${item.price}`)
+        newItem.children(".item-photo").attr("src", item.imagsrc)
+    }
+    })
+			// array of prices
+			const prices = {
+				'item-1': 10,
+				'item-2': 50,
+				'item-3': 70,
+			}
+
+			// save the price in local storage to avoid lost all prices when refresh
+			let cartTotal = parseFloat(localStorage.getItem('cartTotal') ?? 0.0);
+		    let elementTotal = localStorage.getItem('elementTotal') ?? "";
+			var products=['Coffee:70','Mango:50','Water:10'];
+			var w=0,m=0,c=0;
+			
+			$(() => {
+				// add price to each item
+				$('.item').each((i, el) => {
+					const id = $(el).attr('id'),
+					      price = prices[id],
+					      name = $(el).children('h3').html();
+
+					$(el).children('h3').html(`${name}:${price}`)
+
+				})
+
+				// add item price to cart total when  click on buy button
+				$('body').on('click', '.item button', function() {
+					const btn = $(this),
+					      id = btn.parent('.item').attr('id'),
+					      price = prices[id];
+                          name1=btn.parent('.item').children('h3').html();
+                         // products.push(name1);
+						
+                         
+					
+
+							  
+						  
+
+					//function to add price to exist price ++
+				    addToCartTotal(price);
+
+
+					//function to add the product to Purchase List
+					addToList(name1);
+				})
+
+				const addToCartTotal = (price) => {
+					cartTotal += price;
+					localStorage.setItem('cartTotal', cartTotal);
+					name3=$('.cart-total').html();
+					$('.cart-total').html(
+						!cartTotal ? '0' : cartTotal
+					);
+				}
+
+				const addToList= (name1)=>{
+					
+					elementTotal+=name1;
+					 localStorage.setItem('elementTotal',elementTotal);
+					 $('.cart-element').html(
+						//!elementTotal ? 'Your cart is empty' : elementTotal==name1 ? elementTotal+="<br>" : elementTotal
+						!elementTotal ? 'Your cart is empty' : elementTotal+="<br>"
+					);
+
+					$('.cart-element1').html("VTA :" +cartTotal/25);
+				}
+
+
+
+				// make sure that the Purchase List is exist if there are no items
+				addToCartTotal(0);
+				addToList("");
+			})
+		</script>	
+
+		<!-- some page-specific styling -->
+		<style>
+			.menu {
+    width: 70%;
+    height: fit-content;
+    background-color: rgb(189, 243, 217);
+    color: rgb(0, 0, 0);
+    margin: 40px;
+    text-align: center;
+    align-content: center;
+   
+}
+			.container {
+				display: flex;
+				width: 50%;
+				flex-wrap:wrap;
+				justify-content: start;
+				position: absolute;
+                top: 63px;
+				background: rgb(206, 236, 221);
+				
+			}
+			.container2 {
+				display: flex;
+				flex-wrap:no-wrap;
+				justify-content: start;
+				position: absolute;
+                top: 400px;
+				
+			}
+			.item {
+				flex-basis: 200px;
+				text-align: center;
+			}
+			.item img {
+				max-height: 30vh;
+			}
+			.item button {
+				display: block;
+				width: 50%;
+				margin: 10px auto;
+				height: 3em;
+			}
+			.cart-total {
+				color:  blue;
+				font-size: 30px;
+				text-align: right;
+				border:  solid 1px blue;
+				padding: 5px;
+				width: 15%;
+				margin-left: 71%;
+			}
+			.cart-element {
+				color:  blue;
+				font-size: 30px;
+				text-align: right;
+				border:  solid 1px blue;
+				padding: 5px;
+				width: 15%;
+				margin-left: 71%;
+			}
+
+			.cart-element1 {
+				color:  blue;
+				font-size: 30px;
+				text-align: right;
+				border:  solid 1px blue;
+				padding: 5px;
+				width: 15%;
+				margin-left: 71%;
+			}
+
+			.dd{
+				
+				margin-left: 71%;
+			}
+		</style>
+	</head>
+	<body>
+		<h1 style="position: relative;right: -280px; color: rgb(4, 128, 99);">Menu</h1>
+        <h2 class="dd " style="position: absolute;	left: 0px;	top: 69px; color:blue">Total price : </h2>
+			<div class="cart-total" id="d1" ></div>
+			<div class="cart-element" id="d2"></div>
+			<div class="cart-element1" id="d3">
+				
+			</div>
+
+			<div class="container">
+		
+
+			<div id="item-1" class="item">
+				<h3>Water</h3>
+				<img src="water.jpg">
+				<button>Buy</button>
+			</div>
+			<div class="item" id="item-2">
+				<h3>Mango</h3>
+				<img src="mango-juice.jpg">
+				<button>Buy</button>
+			</div>
+			<div class="item" id="item-3">
+				<h3>Coffee</h3>
+				<img src="coffee.jpg">
+				<button>Buy</button>
+			</div>
+
+
+			<div id="item-1" class="item">
+				<h3>Water</h3>
+				<img src="water.jpg">
+				<button>Buy</button>
+			</div>
+			<div class="item" id="item-2">
+				<h3>Mango</h3>
+				<img src="mango-juice.jpg">
+				<button>Buy</button>
+			</div>
+			<div class="item" id="item-3">
+				<h3>Coffee</h3>
+				<img src="coffee.jpg">
+				<button>Buy</button>
+			</div>
+
+
+			<div id="item-1" class="item">
+				<h3>Water</h3>
+				<img src="water.jpg">
+				<button>Buy</button>
+			</div>
+			<div class="item" id="item-2">
+				<h3>Mango</h3>
+				<img src="mango-juice.jpg">
+				<button>Buy</button>
+			</div>
+			<div class="item" id="item-3">
+				<h3>Coffee</h3>
+				<img src="coffee.jpg">
+				<button>Buy</button>
+			</div>
+
+
+			<div id="item-1" class="item">
+				<h3>Water</h3>
+				<img src="water.jpg">
+				<button>Buy</button>
+			</div>
+			<div class="item" id="item-2">
+				<h3>Mango</h3>
+				<img src="mango-juice.jpg">
+				<button>Buy</button>
+			</div>
+			<div class="item" id="item-3">
+				<h3>Coffee</h3>
+				<img src="coffee.jpg">
+				<button>Buy</button>
+			</div>
+
+		</div>
+		
+		</div>
+
+	
+	
+		<script>
+
+			// make the products draggable  
+			$(document).ready(function(){
+				$(".item").draggable({helper:'clone'});
+				$("#d2").droppable(
+					{
+						
+						drop: function(ev,ui){
+							//get the dragged item data : (id , price , name)
+						var droppedItem=$(ui.draggable).clone();
+						id=$(droppedItem).attr('id');
+						price1 = $(droppedItem).children('.item-price').html(); 
+							price=prices[id];
+						name=$(droppedItem).children('h3').html();
+					//	alert(name);
+						
+				 //function to add price to exist price  		
+				const addToCartTotal = (price) => {
+				cartTotal += price;
+				localStorage.setItem('cartTotal', cartTotal);
+				name3=$('.cart-total').html();
+				$('.cart-total').html(
+					!cartTotal ? '0' : cartTotal
+				);
+				$('.cart-element1').html("VTA :" +cartTotal/25);
+			}
+
+                //function to add the product to Purchase List
+				const addToList= (name1)=>{ 
+				//	products.push(name1);
+					elementTotal+=name1;
+				localStorage.setItem('elementTotal',elementTotal);
+				$('.cart-element').html(
+					!elementTotal ? 'Your cart is empty' : elementTotal+="<br>"
+				);
+				
+			}
+
+
+			
+
+			                addToList(name);
+							addToCartTotal(price);							
+						}
+					}
+				);	
+			});
+			
+		
+
+				console.log(elementTotal.length);
+		</script>
+	</body>
+</html>
